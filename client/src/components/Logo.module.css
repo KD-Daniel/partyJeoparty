@@ -1,0 +1,100 @@
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.logoInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.party {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--neon-magenta);
+  text-shadow: var(--glow-magenta);
+  line-height: 0.9;
+}
+
+.jeoparty {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.5));
+  line-height: 1;
+}
+
+.underline {
+  height: 4px;
+  width: 80%;
+  margin-top: 0.5rem;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--neon-cyan),
+    var(--neon-gold),
+    transparent
+  );
+  border-radius: 2px;
+}
+
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 245, 255, 0.15) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Size variants */
+.sm .party {
+  font-size: 0.875rem;
+}
+
+.sm .jeoparty {
+  font-size: 1.5rem;
+}
+
+.md .party {
+  font-size: 1.25rem;
+}
+
+.md .jeoparty {
+  font-size: 2.5rem;
+}
+
+.lg .party {
+  font-size: 1.75rem;
+}
+
+.lg .jeoparty {
+  font-size: 4rem;
+}
+
+.xl .party {
+  font-size: 2.5rem;
+}
+
+.xl .jeoparty {
+  font-size: 6rem;
+}

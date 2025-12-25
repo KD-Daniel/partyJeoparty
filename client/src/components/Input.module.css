@@ -1,0 +1,84 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: all 200ms ease;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input:focus {
+  border-color: var(--neon-cyan);
+}
+
+.input:focus + .border {
+  opacity: 1;
+}
+
+.hasIcon {
+  padding-left: 2.75rem;
+}
+
+.icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  display: flex;
+  transition: color 200ms ease;
+}
+
+.input:focus ~ .icon,
+.inputWrapper:focus-within .icon {
+  color: var(--neon-cyan);
+}
+
+.border {
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 200ms ease;
+  filter: blur(4px);
+}
+
+.hasError .input {
+  border-color: var(--neon-magenta);
+}
+
+.error {
+  font-size: 0.75rem;
+  color: var(--neon-magenta);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}

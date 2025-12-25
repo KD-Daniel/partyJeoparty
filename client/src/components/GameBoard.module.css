@@ -1,0 +1,110 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+@media (max-width: 768px) {
+  .board {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.categoryHeader {
+  padding: 1rem 0.5rem;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #1a237e 0%, #0d1642 100%);
+  border: 2px solid rgba(0, 245, 255, 0.3);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.categoryName {
+  font-family: var(--font-display);
+  font-size: clamp(0.75rem, 1.5vw, 1.125rem);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;
+  padding: 0 0.25rem;
+}
+
+.headerGlow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 245, 255, 0.1) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+.clueCell {
+  aspect-ratio: 1.2;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #1565c0 0%, #0d47a1 100%);
+  border: 2px solid rgba(255, 215, 0, 0.4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 300ms ease;
+}
+
+.clueCell:hover:not(:disabled) {
+  background: linear-gradient(180deg, #1976d2 0%, #1565c0 100%);
+  border-color: var(--neon-gold);
+  box-shadow:
+    0 0 20px rgba(255, 215, 0, 0.3),
+    inset 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+.clueCell:disabled {
+  cursor: default;
+}
+
+.used {
+  background: var(--bg-elevated);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.value {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--neon-gold);
+  text-shadow:
+    0 0 10px rgba(255, 215, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.cellGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 215, 0, 0.1) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.clueCell:hover:not(:disabled) .cellGlow {
+  opacity: 1;
+}

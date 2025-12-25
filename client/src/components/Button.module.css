@@ -1,0 +1,142 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 250ms ease;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.text {
+  position: relative;
+  z-index: 1;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 400ms ease;
+}
+
+.button:hover .shine {
+  left: 100%;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner svg {
+  width: 1.25em;
+  height: 1.25em;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Sizes */
+.sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.md {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
+
+.lg {
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+}
+
+/* Variants */
+.primary {
+  background: linear-gradient(135deg, var(--neon-cyan), #00a8b3);
+  color: var(--bg-deep);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+}
+
+.primary:hover:not(:disabled) {
+  box-shadow: 0 0 40px rgba(0, 245, 255, 0.6);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--neon-cyan);
+  border: 2px solid var(--neon-cyan);
+}
+
+.secondary:hover:not(:disabled) {
+  background: rgba(0, 245, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+.danger {
+  background: linear-gradient(135deg, var(--neon-magenta), #aa0066);
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 0, 170, 0.4);
+}
+
+.danger:hover:not(:disabled) {
+  box-shadow: 0 0 40px rgba(255, 0, 170, 0.6);
+}
+
+.gold {
+  background: linear-gradient(135deg, var(--neon-gold), #cc9900);
+  color: var(--bg-deep);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.gold:hover:not(:disabled) {
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.fullWidth {
+  width: 100%;
+}

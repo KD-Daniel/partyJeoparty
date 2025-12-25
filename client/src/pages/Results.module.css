@@ -1,0 +1,215 @@
+.page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(0, 245, 255, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 80%, rgba(255, 0, 170, 0.08) 0%, transparent 40%),
+    var(--bg-deep);
+}
+
+/* Confetti Animation */
+.confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.confettiPiece {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: fall linear infinite;
+  transform: rotate(45deg);
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  background: linear-gradient(135deg, var(--neon-gold), var(--neon-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 1rem;
+}
+
+/* Winner Section */
+.winnerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.crown {
+  animation: float 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.winnerLabel {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+}
+
+.winnerName {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5rem);
+  color: var(--neon-gold);
+  text-shadow: var(--glow-gold);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 80px rgba(255, 215, 0, 0.5);
+  }
+}
+
+.winnerScore {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--neon-lime);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.trophy {
+  margin-top: 1rem;
+  animation: float 3s ease-in-out infinite;
+  animation-delay: -1.5s;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+}
+
+/* Podium */
+.podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.podiumSpot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.podiumPlayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  min-width: 120px;
+}
+
+.podiumRank {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--text-muted);
+}
+
+.podiumName {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.podiumScore {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--neon-lime);
+}
+
+.podiumBase {
+  width: 100%;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.first .podiumBase {
+  height: 100px;
+  background: linear-gradient(180deg, #ffd700 0%, #cc9900 100%);
+}
+
+.first .podiumRank {
+  color: var(--neon-gold);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.second .podiumBase {
+  height: 70px;
+  background: linear-gradient(180deg, #c0c0c0 0%, #909090 100%);
+}
+
+.third .podiumBase {
+  height: 50px;
+  background: linear-gradient(180deg, #cd7f32 0%, #a05a20 100%);
+}
+
+/* Leaderboard */
+.leaderboard {
+  margin-bottom: 2rem;
+}
+
+.leaderboardTitle {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.playerList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
