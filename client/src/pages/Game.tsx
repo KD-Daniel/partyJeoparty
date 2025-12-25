@@ -23,6 +23,7 @@ export function Game() {
   const [canBuzz, setCanBuzz] = useState(false);
   const [loading, setLoading] = useState(true);
   const [playerNames, setPlayerNames] = useState<Record<string, string>>({});
+  const [selectedDrawingAnswer, setSelectedDrawingAnswer] = useState<string | undefined>();
 
   // Check if we're the host
   const savedHostId = sessionStorage.getItem('hostId');
@@ -107,6 +108,7 @@ export function Game() {
         isOpen: true,
       });
       setUsedClues(new Set(data.usedClues));
+      setSelectedDrawingAnswer(undefined); // Reset for new clue
       setBuzzWinner(undefined);
       setBuzzerName(undefined);
       setCanBuzz(false);
@@ -212,9 +214,16 @@ export function Game() {
       setBuzzerName(undefined);
       setTimeRemaining(undefined);
       setCanBuzz(false);
+      setSelectedDrawingAnswer(undefined);
       if (data.usedClues) {
         setUsedClues(new Set(data.usedClues));
       }
+    });
+
+    // Listen for GM drawing option selection
+    socket.on('drawing-option-selected', (data: { selectedAnswer: string }) => {
+      console.log('Drawing option selected:', data);
+      setSelectedDrawingAnswer(data.selectedAnswer);
     });
 
     return () => {
@@ -231,6 +240,7 @@ export function Game() {
       socket.off('score-adjusted');
       socket.off('score-updated');
       socket.off('clue-closed');
+      socket.off('drawing-option-selected');
     };
   }, [socket, code, navigate]);
 
@@ -378,7 +388,7 @@ export function Game() {
         onCorrect={() => handleJudgeAnswer(true)}
         onIncorrect={() => handleJudgeAnswer(false)}
         onAnswerSubmit={handleAnswerSubmit}
-        acceptableAnswers={currentClue?.acceptableAnswers || []}
+        selectedDrawingAnswer={selectedDrawingAnswer}
       />
     </div>
   );

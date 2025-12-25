@@ -159,10 +159,24 @@ export function GameMaster() {
     }
   };
 
+  const selectDrawingOption = (index: number) => {
+    if (!currentClue || !currentClue.clue.acceptableAnswers[index]) return;
+
+    setSelectedDrawingOption(index);
+
+    // Broadcast to TV so it shows the hangman blanks
+    if (socket) {
+      socket.emit('gm-select-drawing-option', {
+        roomCode: code,
+        selectedAnswer: currentClue.clue.acceptableAnswers[index],
+      });
+    }
+  };
+
   const selectRandomDrawingOption = () => {
     if (currentClue && currentClue.clue.acceptableAnswers.length > 0) {
       const randomIndex = Math.floor(Math.random() * currentClue.clue.acceptableAnswers.length);
-      setSelectedDrawingOption(randomIndex);
+      selectDrawingOption(randomIndex);
     }
   };
 
@@ -328,14 +342,14 @@ export function GameMaster() {
                       <div
                         key={index}
                         className={`${styles.drawingOption} ${selectedDrawingOption === index ? styles.selected : ''}`}
-                        onClick={() => setSelectedDrawingOption(index)}
+                        onClick={() => selectDrawingOption(index)}
                       >
                         <span className={styles.optionNumber}>{index + 1}</span>
                         <span className={styles.optionText}>{option}</span>
                       </div>
                     ))}
                     <Button variant="primary" onClick={selectRandomDrawingOption}>
-                      🎲 Pick Random
+                      Pick Random
                     </Button>
                   </div>
                 )}

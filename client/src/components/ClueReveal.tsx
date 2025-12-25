@@ -19,7 +19,7 @@ interface ClueRevealProps {
   onIncorrect?: () => void;
   onAnswerSubmit?: (answer: string) => void;
   validationMode?: 'host-judged' | 'auto-check';
-  acceptableAnswers?: string[];
+  selectedDrawingAnswer?: string;
 }
 
 export function ClueReveal({
@@ -37,13 +37,22 @@ export function ClueReveal({
   onIncorrect,
   onAnswerSubmit,
   validationMode = 'host-judged',
-  acceptableAnswers = [],
+  selectedDrawingAnswer,
 }: ClueRevealProps) {
   const [showBuzzPrompt, setShowBuzzPrompt] = useState(false);
   const [answerText, setAnswerText] = useState('');
 
   // Check if this is a drawing challenge
   const isDrawingChallenge = clueText?.includes('DRAW:') || clueText?.includes('DRAW CHALLENGE:');
+
+  // Generate hangman-style blanks from the selected answer
+  const generateBlanks = (answer: string) => {
+    return answer.split('').map((char) => {
+      if (char === ' ') return '  '; // double space for word gaps
+      if (/[a-zA-Z0-9]/.test(char)) return '_';
+      return char; // keep punctuation visible
+    }).join(' ');
+  };
 
   useEffect(() => {
     if (isOpen && canBuzz) {
@@ -96,15 +105,19 @@ export function ClueReveal({
                   transition={{ delay: 0.3 }}
                 >
                   <div className={styles.drawingLabel}>DRAWING CHALLENGE</div>
-                  <p className={styles.drawingInstructions}>The drawer must draw one of these options:</p>
-                  <div className={styles.drawingOptions}>
-                    {acceptableAnswers.map((option, index) => (
-                      <div key={index} className={styles.drawingOption}>
-                        <span className={styles.optionNumber}>{index + 1}</span>
-                        <span className={styles.optionText}>{option}</span>
+                  {selectedDrawingAnswer ? (
+                    <>
+                      <p className={styles.drawingInstructions}>Guess what's being drawn!</p>
+                      <div className={styles.hangmanBlanks}>
+                        {generateBlanks(selectedDrawingAnswer)}
                       </div>
-                    ))}
-                  </div>
+                      <p className={styles.letterCount}>
+                        ({selectedDrawingAnswer.replace(/[^a-zA-Z0-9]/g, '').length} letters)
+                      </p>
+                    </>
+                  ) : (
+                    <p className={styles.waitingText}>Waiting for host to pick...</p>
+                  )}
                 </motion.div>
               ) : (
                 <motion.p

@@ -778,6 +778,20 @@ export function setupSocketHandlers(io: Server) {
       })
     })
 
+    // Game Master: Select drawing option (for hangman display)
+    socket.on('gm-select-drawing-option', ({ roomCode, selectedAnswer }) => {
+      const session = gameSessions.get(roomCode)
+      if (!session) {
+        socket.emit('error', { message: 'Room not found' })
+        return
+      }
+
+      // Broadcast the selected answer to all clients
+      io.to(roomCode).emit('drawing-option-selected', {
+        selectedAnswer,
+      })
+    })
+
     // Game Master: Close clue (no points awarded)
     socket.on('gm-close-clue', ({ roomCode }) => {
       const session = gameSessions.get(roomCode)
