@@ -748,6 +748,7 @@ export function setupSocketHandlers(io: Server) {
           clueText: clue.clueText,
           isDailyDouble: clue.isDailyDouble,
           media: clue.media,
+          acceptableAnswers: clue.acceptableAnswers,
         },
         usedClues: Array.from(session.usedClues),
       })

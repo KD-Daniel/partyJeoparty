@@ -1,0 +1,256 @@
+{
+  "title": "Guys Night Trivia",
+  "setup": {
+    "title": "Guys Night Trivia",
+    "players": [
+      { "id": "p1", "name": "Team Alpha" },
+      { "id": "p2", "name": "Team Beta" }
+    ],
+    "rounds": [
+      {
+        "id": "round-1",
+        "name": "Jeopardy Round",
+        "categories": [
+          {
+            "id": "cat1",
+            "name": "Gamers of Culture",
+            "clues": [
+              {
+                "id": "cat1-c1",
+                "value": 200,
+                "clueText": "This gaming term means a non-player character controlled by the game.",
+                "acceptableAnswers": ["NPC", "Non-player character", "Non player character"]
+              },
+              {
+                "id": "cat1-c2",
+                "value": 400,
+                "clueText": "In most shooters, what does 'ADS' stand for?",
+                "acceptableAnswers": ["Aim down sights", "Aiming down sights"]
+              },
+              {
+                "id": "cat1-c3",
+                "value": 600,
+                "clueText": "This genre typically features leveling up, loot, and character builds (like Diablo or Path of Exile).",
+                "acceptableAnswers": ["ARPG", "Action RPG", "Action role-playing game", "Action role playing game"]
+              },
+              {
+                "id": "cat1-c4",
+                "value": 800,
+                "clueText": "This common game UI element usually shows your health as a bar or hearts.",
+                "acceptableAnswers": ["Health bar", "HP bar", "Health", "HP"]
+              },
+              {
+                "id": "cat1-c5",
+                "value": 1000,
+                "clueText": "The abbreviation 'GG' is commonly used at the end of matches. What does it stand for?",
+                "acceptableAnswers": ["Good game", "GG"]
+              }
+            ]
+          },
+          {
+            "id": "cat2",
+            "name": "Vanilla WoW & The Barrens",
+            "clues": [
+              {
+                "id": "cat2-c1",
+                "value": 200,
+                "clueText": "Classic meme: In The Barrens, everyone asked this question about a missing NPC.",
+                "acceptableAnswers": ["Where is Mankrik's wife?", "Where is Mankrik wife?", "Mankrik's wife", "Mankriks wife"]
+              },
+              {
+                "id": "cat2-c2",
+                "value": 400,
+                "clueText": "In Vanilla WoW, raids commonly required this many players for endgame content like Molten Core.",
+                "acceptableAnswers": ["40", "Forty"]
+              },
+              {
+                "id": "cat2-c3",
+                "value": 600,
+                "clueText": "In Vanilla WoW, this fiery raid instance was the classic starter raid for many guilds.",
+                "acceptableAnswers": ["Molten Core", "MC"]
+              },
+              {
+                "id": "cat2-c4",
+                "value": 800,
+                "clueText": "DRAW: The drawer picks one option and draws it. Team must guess!",
+                "acceptableAnswers": ["Ragnaros", "Mankrik", "The Barrens (map outline)"]
+              },
+              {
+                "id": "cat2-c5",
+                "value": 1000,
+                "clueText": "This legendary item is joked about as the most famous trade chat flex: 'Did someone say...' (name the item).",
+                "acceptableAnswers": [
+                  "Thunderfury, Blessed Blade of the Windseeker",
+                  "Thunderfury",
+                  "Blessed Blade of the Windseeker",
+                  "Thunderfury Blessed Blade of the Windseeker"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cat3",
+            "name": "Counter-Strike: Rush B",
+            "clues": [
+              {
+                "id": "cat3-c1",
+                "value": 200,
+                "clueText": "In Counter-Strike, what is the name of the device terrorists plant to win the round?",
+                "acceptableAnswers": ["Bomb", "C4", "C-4", "C4 explosive", "C4 bomb"]
+              },
+              {
+                "id": "cat3-c2",
+                "value": 400,
+                "clueText": "A round where a team buys little to save money for later is called an ______ round.",
+                "acceptableAnswers": ["Eco", "Eco round", "ECO"]
+              },
+              {
+                "id": "cat3-c3",
+                "value": 600,
+                "clueText": "This is the standard abbreviation for Counter-Terrorists.",
+                "acceptableAnswers": ["CT", "Counter-Terrorists", "Counter Terrorists"]
+              },
+              {
+                "id": "cat3-c4",
+                "value": 800,
+                "clueText": "If you lose a round but still buy some weapons/utility to try to win, it's commonly called a ______ buy.",
+                "acceptableAnswers": ["Force", "Force buy", "Force-buy", "Forcebuy"]
+              },
+              {
+                "id": "cat3-c5",
+                "value": 1000,
+                "clueText": "This phrase is the classic meme call that means everyone rushes the B site (two words + one letter).",
+                "acceptableAnswers": ["Rush B", "Rush B!", "Rush B boys", "Rush B cyka blyat"]
+              }
+            ]
+          },
+          {
+            "id": "cat4",
+            "name": "Music & Media",
+            "clues": [
+              {
+                "id": "cat4-c1",
+                "value": 200,
+                "clueText": "AUDIO: Host plays a very famous movie intro theme. Guess the franchise: the opening crawl theme.",
+                "acceptableAnswers": ["Star Wars", "Star Wars theme", "Main Title (Star Wars)", "Star Wars main theme"]
+              },
+              {
+                "id": "cat4-c2",
+                "value": 400,
+                "clueText": "AUDIO: Host plays the opening theme from a long-running animated series with a yellow family. Name the show.",
+                "acceptableAnswers": ["The Simpsons", "Simpsons"]
+              },
+              {
+                "id": "cat4-c3",
+                "value": 600,
+                "clueText": "AUDIO: Host plays the classic Pokemon opening (English or Danish version is fine). Name the franchise.",
+                "acceptableAnswers": ["Pokemon", "Pokemon theme"]
+              },
+              {
+                "id": "cat4-c4",
+                "value": 800,
+                "clueText": "AUDIO: Host plays the iconic World of Warcraft login music. Name the game.",
+                "acceptableAnswers": ["World of Warcraft", "WoW"]
+              },
+              {
+                "id": "cat4-c5",
+                "value": 1000,
+                "clueText": "AUDIO: Host plays a track from a game and you must name BOTH the game and the character/franchise it's associated with (host choice).",
+                "acceptableAnswers": [
+                  "Host judged",
+                  "Host-judged",
+                  "Host judged (game + franchise)",
+                  "Host judged (game and franchise)"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cat5",
+            "name": "Raid Mechanics Logic",
+            "clues": [
+              {
+                "id": "cat5-c1",
+                "value": 200,
+                "clueText": "Logic: The boss targets ONE player with a 'big circle'. The safest default call for the group is usually: stack together or spread out?",
+                "acceptableAnswers": ["Spread", "Spread out"]
+              },
+              {
+                "id": "cat5-c2",
+                "value": 400,
+                "clueText": "Logic: If a mechanic says 'SOAK' (shared damage), what should players typically do?",
+                "acceptableAnswers": ["Stack", "Stack together", "Group up", "Soak together"]
+              },
+              {
+                "id": "cat5-c3",
+                "value": 600,
+                "clueText": "Logic: You have 4 players and 2 safe spots. Each safe spot can hold ONLY 2 players. What is the correct distribution?",
+                "acceptableAnswers": ["2 and 2", "Two and two", "2-2", "Split 2/2", "Two per spot"]
+              },
+              {
+                "id": "cat5-c4",
+                "value": 800,
+                "clueText": "Logic: A debuff jumps to the nearest player when it expires. What's the best general strategy: clump up or keep distance?",
+                "acceptableAnswers": ["Keep distance", "Spread", "Spread out", "Keep apart"]
+              },
+              {
+                "id": "cat5-c5",
+                "value": 1000,
+                "clueText": "Logic: You must interrupt a spell every 10 seconds. You have 3 players who can interrupt. What's the safest plan?",
+                "acceptableAnswers": [
+                  "Rotate interrupts",
+                  "Interrupt rotation",
+                  "Take turns",
+                  "Rotation",
+                  "Assign an interrupt order"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cat6",
+            "name": "Draw or Die",
+            "clues": [
+              {
+                "id": "cat6-c1",
+                "value": 200,
+                "clueText": "DRAW: The drawer picks one option and draws it. Team must guess!",
+                "acceptableAnswers": ["Pikachu", "AK-47", "Lightsaber"]
+              },
+              {
+                "id": "cat6-c2",
+                "value": 400,
+                "clueText": "DRAW: The drawer picks one option and draws it. Team must guess!",
+                "acceptableAnswers": ["Charmander", "Dust2 (CS map)", "R2-D2"]
+              },
+              {
+                "id": "cat6-c3",
+                "value": 600,
+                "clueText": "DRAW: The drawer picks one option and draws it. Team must guess!",
+                "acceptableAnswers": ["Gyarados", "Molten Core entrance", "Darth Vader"]
+              },
+              {
+                "id": "cat6-c4",
+                "value": 800,
+                "clueText": "DRAW: The drawer picks one option and draws it. Team must guess!",
+                "acceptableAnswers": ["Mankrik", "HE Grenade", "Snorlax"]
+              },
+              {
+                "id": "cat6-c5",
+                "value": 1000,
+                "clueText": "DRAW: The drawer picks one option and draws it. Team must guess!",
+                "acceptableAnswers": ["Thunderfury (the sword)", "Death Star", "Ninja defuse (CS moment)"]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "rules": {
+      "buzzOpenDelayMs": 500,
+      "answerTimeSeconds": 30,
+      "reboundEnabled": true,
+      "validationMode": "host-judged"
+    }
+  }
+}

@@ -378,6 +378,7 @@ export function Game() {
         onCorrect={() => handleJudgeAnswer(true)}
         onIncorrect={() => handleJudgeAnswer(false)}
         onAnswerSubmit={handleAnswerSubmit}
+        acceptableAnswers={currentClue?.acceptableAnswers || []}
       />
     </div>
   );

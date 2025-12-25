@@ -19,6 +19,7 @@ interface ClueRevealProps {
   onIncorrect?: () => void;
   onAnswerSubmit?: (answer: string) => void;
   validationMode?: 'host-judged' | 'auto-check';
+  acceptableAnswers?: string[];
 }
 
 export function ClueReveal({
@@ -36,9 +37,13 @@ export function ClueReveal({
   onIncorrect,
   onAnswerSubmit,
   validationMode = 'host-judged',
+  acceptableAnswers = [],
 }: ClueRevealProps) {
   const [showBuzzPrompt, setShowBuzzPrompt] = useState(false);
   const [answerText, setAnswerText] = useState('');
+
+  // Check if this is a drawing challenge
+  const isDrawingChallenge = clueText?.includes('DRAW:') || clueText?.includes('DRAW CHALLENGE:');
 
   useEffect(() => {
     if (isOpen && canBuzz) {
@@ -83,14 +88,34 @@ export function ClueReveal({
             </div>
 
             <div className={styles.clueArea}>
-              <motion.p
-                className={styles.clueText}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                {clueText}
-              </motion.p>
+              {isDrawingChallenge ? (
+                <motion.div
+                  className={styles.drawingChallenge}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <div className={styles.drawingLabel}>DRAWING CHALLENGE</div>
+                  <p className={styles.drawingInstructions}>The drawer must draw one of these options:</p>
+                  <div className={styles.drawingOptions}>
+                    {acceptableAnswers.map((option, index) => (
+                      <div key={index} className={styles.drawingOption}>
+                        <span className={styles.optionNumber}>{index + 1}</span>
+                        <span className={styles.optionText}>{option}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.p
+                  className={styles.clueText}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  {clueText}
+                </motion.p>
+              )}
             </div>
 
             {timeRemaining !== undefined && (
