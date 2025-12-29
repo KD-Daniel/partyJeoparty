@@ -119,6 +119,15 @@ export function ClueReveal({
                     <p className={styles.waitingText}>Waiting for host to pick...</p>
                   )}
                 </motion.div>
+              ) : !clueText ? (
+                <motion.div
+                  className={styles.waitingForHost}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <p className={styles.waitingText}>Listen to the host read the question...</p>
+                </motion.div>
               ) : (
                 <motion.p
                   className={styles.clueText}

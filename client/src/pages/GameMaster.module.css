@@ -102,6 +102,132 @@
   margin-bottom: 0;
 }
 
+.customPoints {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.customPoints label {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.customPointsInput {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-primary);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  text-align: center;
+  transition: border-color 0.2s ease;
+}
+
+.customPointsInput:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+}
+
+.customPointsInput::-webkit-inner-spin-button,
+.customPointsInput::-webkit-outer-spin-button {
+  opacity: 1;
+  height: 30px;
+}
+
+.customPointsButtons {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.customPointsButtons button {
+  flex: 1;
+}
+
+.customPointsRow {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.customPointsRow .customPointsInput {
+  flex: 1;
+}
+
+.saveWildcard {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--neon-gold);
+  border: none;
+  border-radius: var(--radius-md);
+  color: black;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.saveWildcard:hover {
+  background: #ffcc00;
+  transform: scale(1.05);
+}
+
+.wildcards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.wildcards label {
+  color: var(--neon-gold);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.wildcardList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.wildcardItem {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.wildcardItem button:first-child,
+.wildcardItem button:nth-child(2) {
+  flex: 1;
+}
+
+.removeWildcard {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeWildcard:hover {
+  background: rgba(255, 0, 102, 0.2);
+  border-color: var(--neon-magenta);
+  color: var(--neon-magenta);
+}
+
 .scoreItem {
   display: flex;
   align-items: center;

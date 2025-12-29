@@ -1,0 +1,244 @@
+{
+  "title": "Guys Night Trivia – Hard Mode (DK)",
+  "setup": {
+    "title": "Guys Night Trivia – Hard Mode (DK)",
+    "players": [
+      { "id": "p1", "name": "Team Alpha" },
+      { "id": "p2", "name": "Team Beta" }
+    ],
+    "rounds": [
+      {
+        "id": "round-1",
+        "name": "Jeopardy Runde",
+        "categories": [
+          {
+            "id": "cat1",
+            "name": "Spil (1990–2010) – Hardcore",
+            "clues": [
+              {
+                "id": "cat1-c1",
+                "value": 200,
+                "clueText": "Dette spil fra 1998 foregår i City 17 og har en hovedperson med et koben.",
+                "acceptableAnswers": ["Half-Life", "Half Life"]
+              },
+              {
+                "id": "cat1-c2",
+                "value": 400,
+                "clueText": "I dette spil fra 2004 foregår størstedelen i et forfaldent fængsel, og det er berømt for sin 'filmiske' førstepersonsoplevelse.",
+                "acceptableAnswers": [
+                  "Chronicles of Riddick: Escape from Butcher Bay",
+                  "The Chronicles of Riddick: Escape from Butcher Bay",
+                  "Escape from Butcher Bay"
+                ]
+              },
+              {
+                "id": "cat1-c3",
+                "value": 600,
+                "clueText": "Dette stealth-spil fra 1998 gjorde lys/skygge og lyd til centrale gameplay-mekanikker, hvor fjender reagerer på dine fodtrin.",
+                "acceptableAnswers": ["Thief: The Dark Project", "Thief", "Thief Gold"]
+              },
+              {
+                "id": "cat1-c4",
+                "value": 800,
+                "clueText": "SVÆR: Dette spil fra 2000 er kendt for at lade dig løse missioner på mange måder (stealth, hacking, tale, vold) i en cyberpunk-konspirationsverden.",
+                "acceptableAnswers": ["Deus Ex"]
+              },
+              {
+                "id": "cat1-c5",
+                "value": 1000,
+                "clueText": "MEGET SVÆR: I dette spil fra 2005 kan du stjæle en bil, men spillets navn handler faktisk om en 'sanity' mekanik og en kosmisk horror-historie.",
+                "acceptableAnswers": ["Call of Cthulhu: Dark Corners of the Earth", "Dark Corners of the Earth"]
+              }
+            ]
+          },
+          {
+            "id": "cat2",
+            "name": "Film – Gæt Ud Fra Beskrivelsen",
+            "clues": [
+              {
+                "id": "cat2-c1",
+                "value": 200,
+                "clueText": "En mand opdager sandheden om verden efter at have taget en pille.",
+                "acceptableAnswers": ["The Matrix"]
+              },
+              {
+                "id": "cat2-c2",
+                "value": 400,
+                "clueText": "En gruppe mennesker bruger tre film på at returnere et smykke.",
+                "acceptableAnswers": ["The Lord of the Rings", "Lord of the Rings"]
+              },
+              {
+                "id": "cat2-c3",
+                "value": 600,
+                "clueText": "En sprogekspert forsøger at kommunikere med rumvæsner for at forhindre krig.",
+                "acceptableAnswers": ["Arrival"]
+              },
+              {
+                "id": "cat2-c4",
+                "value": 800,
+                "clueText": "SVÆR: En mand får et job, hvor han skal skrive, men ender i en labyrint af identiteter og en mystisk undergrundsverden.",
+                "acceptableAnswers": ["Brazil"]
+              },
+              {
+                "id": "cat2-c5",
+                "value": 1000,
+                "clueText": "MEGET SVÆR: En film hvor to illusionister ligger i krig mod hinanden, og svaret på tricket er hele pointen med historien.",
+                "acceptableAnswers": ["The Prestige", "Prestige"]
+              }
+            ]
+          },
+          {
+            "id": "cat3",
+            "name": "Filmcitater – Hard Mode",
+            "clues": [
+              {
+                "id": "cat3-c1",
+                "value": 200,
+                "clueText": "Citat: \"Life finds a way.\"",
+                "acceptableAnswers": ["Jurassic Park"]
+              },
+              {
+                "id": "cat3-c2",
+                "value": 400,
+                "clueText": "Citat: \"You either die a hero, or you live long enough to see yourself become the villain.\"",
+                "acceptableAnswers": ["The Dark Knight", "Dark Knight"]
+              },
+              {
+                "id": "cat3-c3",
+                "value": 600,
+                "clueText": "Citat: \"I wish I knew how to quit you.\"",
+                "acceptableAnswers": ["Brokeback Mountain"]
+              },
+              {
+                "id": "cat3-c4",
+                "value": 800,
+                "clueText": "SVÆR: \"I'm as mad as hell, and I'm not going to take this anymore!\"",
+                "acceptableAnswers": ["Network"]
+              },
+              {
+                "id": "cat3-c5",
+                "value": 1000,
+                "clueText": "MEGET SVÆR: \"I drink your milkshake!\"",
+                "acceptableAnswers": ["There Will Be Blood"]
+              }
+            ]
+          },
+          {
+            "id": "cat4",
+            "name": "Musik – Temaer & Genkendelse",
+            "clues": [
+              {
+                "id": "cat4-c1",
+                "value": 200,
+                "clueText": "🎵 LYD: Host spiller åbningsmusikken. Hvilken franchise?",
+                "acceptableAnswers": ["Star Wars"]
+              },
+              {
+                "id": "cat4-c2",
+                "value": 400,
+                "clueText": "🎵 LYD: Temaet fra en animeret serie med en gul familie.",
+                "acceptableAnswers": ["The Simpsons", "Simpsons"]
+              },
+              {
+                "id": "cat4-c3",
+                "value": 600,
+                "clueText": "🎵 LYD: Cantina-jazz fra Star Wars. Hvilket sted?",
+                "acceptableAnswers": ["Mos Eisley Cantina", "Mos Eisley", "Cantina"]
+              },
+              {
+                "id": "cat4-c4",
+                "value": 800,
+                "clueText": "SVÆR: 🎵 LYD: Minimalistisk synth-musik fra et cyberpunk detektiv-RPG.",
+                "acceptableAnswers": ["Disco Elysium"]
+              },
+              {
+                "id": "cat4-c5",
+                "value": 1000,
+                "clueText": "MEGET SVÆR: 🎵 LYD: Et kendt tema fra en filmtrilogi, hvor de første 5 sekunder alene ofte afslører det. Hvilken trilogi? (Host vælger klip).",
+                "acceptableAnswers": ["The Lord of the Rings", "Lord of the Rings", "Host judged", "Host-judged"]
+              }
+            ]
+          },
+          {
+            "id": "cat5",
+            "name": "Logikfælder",
+            "clues": [
+              {
+                "id": "cat5-c1",
+                "value": 200,
+                "clueText": "Hvad er 7 × 8?",
+                "acceptableAnswers": ["56"]
+              },
+              {
+                "id": "cat5-c2",
+                "value": 400,
+                "clueText": "Hvor mange gange overlapper time- og minutviseren på et ur på 12 timer?",
+                "acceptableAnswers": ["11", "Elleve"]
+              },
+              {
+                "id": "cat5-c3",
+                "value": 600,
+                "clueText": "Hvad er 15 % af 240?",
+                "acceptableAnswers": ["36", "Seksogtredive", "Seks og tredive"]
+              },
+              {
+                "id": "cat5-c4",
+                "value": 800,
+                "clueText": "SVÆR: Hvor mange udfald er der ved 4 møntkast?",
+                "acceptableAnswers": ["16", "Seksten"]
+              },
+              {
+                "id": "cat5-c5",
+                "value": 1000,
+                "clueText": "MEGET SVÆR: Hvor mange firkanter er der i alt på et skakbræt?",
+                "acceptableAnswers": ["204"]
+              }
+            ]
+          },
+          {
+            "id": "cat6",
+            "name": "Geografi – Mean Mode",
+            "clues": [
+              {
+                "id": "cat6-c1",
+                "value": 200,
+                "clueText": "Hvad er hovedstaden i Australien? (Det er ikke Sydney.)",
+                "acceptableAnswers": ["Canberra"]
+              },
+              {
+                "id": "cat6-c2",
+                "value": 400,
+                "clueText": "Hvilke to lande grænser op til Danmark via landegrænse? (Svar begge.)",
+                "acceptableAnswers": ["Germany and Canada (wrong)", "Tyskland", "Tyskland og", "Tyskland og Sverige (wrong)"]
+              },
+              {
+                "id": "cat6-c3",
+                "value": 600,
+                "clueText": "Hvilket land har den længste kystlinje i verden?",
+                "acceptableAnswers": ["Canada"]
+              },
+              {
+                "id": "cat6-c4",
+                "value": 800,
+                "clueText": "SVÆR: Hvilket af disse lande har flest tidszoner: Rusland, USA eller Frankrig?",
+                "acceptableAnswers": ["France", "Frankrig"]
+              },
+              {
+                "id": "cat6-c5",
+                "value": 1000,
+                "clueText": "MEGET SVÆR: Hvad hedder verdens største ø (areal), som ikke regnes som et kontinent?",
+                "acceptableAnswers": ["Greenland", "Grønland", "Gronland"]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "rules": {
+      "buzzOpenDelayMs": 500,
+      "answerTimeSeconds": 25,
+      "reboundEnabled": true,
+      "validationMode": "host-judged"
+    }
+  }
+}

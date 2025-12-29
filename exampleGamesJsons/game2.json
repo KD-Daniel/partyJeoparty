@@ -1,0 +1,346 @@
+{
+  "title": "Guys Night Trivia: Hard Mode",
+  "setup": {
+    "title": "Guys Night Trivia: Hard Mode",
+    "players": [
+      { "id": "p1", "name": "Team Alpha" },
+      { "id": "p2", "name": "Team Beta" }
+    ],
+    "rounds": [
+      {
+        "id": "round-1",
+        "name": "Jeopardy Round (Hard Mode)",
+        "categories": [
+          {
+            "id": "cat1",
+            "name": "Gaming Deep Cuts",
+            "clues": [
+              {
+                "id": "cat1-c1",
+                "value": 200,
+                "clueText": "In game design, the 'metagame' primarily refers to strategies and choices based on ______ rather than only in-game mechanics.",
+                "acceptableAnswers": [
+                  "Player behavior",
+                  "Players",
+                  "The community",
+                  "Community knowledge",
+                  "Out-of-game information",
+                  "External information"
+                ]
+              },
+              {
+                "id": "cat1-c2",
+                "value": 400,
+                "clueText": "The term 'i-frames' is short for what, commonly used to describe brief moments of safety during an action?",
+                "acceptableAnswers": [
+                  "Invincibility frames",
+                  "Invulnerability frames",
+                  "Invincibility frame",
+                  "Invulnerability frame",
+                  "Iframes",
+                  "I-frames"
+                ]
+              },
+              {
+                "id": "cat1-c3",
+                "value": 600,
+                "clueText": "Name the genre where progress is partly retained between runs, and repeated runs are expected (e.g., Hades).",
+                "acceptableAnswers": [
+                  "Roguelite",
+                  "Rogue-lite",
+                  "Rogue lite",
+                  "Roguelike (host accepted)",
+                  "Rogue-like (host accepted)",
+                  "Rogue like (host accepted)"
+                ]
+              },
+              {
+                "id": "cat1-c4",
+                "value": 800,
+                "clueText": "This term describes canceling part of an animation to act sooner (common in fighting games and action games).",
+                "acceptableAnswers": [
+                  "Animation cancel",
+                  "Animation canceling",
+                  "Anim cancel",
+                  "Anim canceling",
+                  "Cancel",
+                  "Cancelling"
+                ]
+              },
+              {
+                "id": "cat1-c5",
+                "value": 1000,
+                "clueText": "Hard mode: In multiplayer design, what's the name of the hidden rating system many games use to match players of similar skill?",
+                "acceptableAnswers": [
+                  "MMR",
+                  "Matchmaking rating",
+                  "Elo (host accepted)",
+                  "ELO (host accepted)",
+                  "Skill rating",
+                  "Hidden rating"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cat2",
+            "name": "Vanilla WoW: Raids, Attunements & Pain",
+            "clues": [
+              {
+                "id": "cat2-c1",
+                "value": 200,
+                "clueText": "In Vanilla, the shorthand 'MC' refers to which raid instance?",
+                "acceptableAnswers": ["Molten Core", "MC"]
+              },
+              {
+                "id": "cat2-c2",
+                "value": 400,
+                "clueText": "This Onyxia-related quest chain is famously referred to as the player's 'attunement' for ______.",
+                "acceptableAnswers": [
+                  "Onyxia",
+                  "Onyxia's Lair",
+                  "Onyxias Lair",
+                  "Ony",
+                  "Onyxia attunement"
+                ]
+              },
+              {
+                "id": "cat2-c3",
+                "value": 600,
+                "clueText": "In Vanilla raids, this role is most associated with building threat so the boss stays on them.",
+                "acceptableAnswers": [
+                  "Tank",
+                  "Main tank",
+                  "MT",
+                  "Tanks",
+                  "The tank"
+                ]
+              },
+              {
+                "id": "cat2-c4",
+                "value": 800,
+                "clueText": "Hard mode: The legendary sword meme item that starts with 'Thunderfury' ends with what title?",
+                "acceptableAnswers": [
+                  "Blessed Blade of the Windseeker",
+                  "the Windseeker",
+                  "Windseeker",
+                  "Blessed Blade of Windseeker"
+                ]
+              },
+              {
+                "id": "cat2-c5",
+                "value": 1000,
+                "clueText": "DRAW: [Ragnaros] / [Onyxia] / [The Barrens (map outline)]. Team must guess from the drawing.",
+                "acceptableAnswers": [
+                  "Ragnaros",
+                  "Onyxia",
+                  "The Barrens",
+                  "Barrens",
+                  "The Barrens (map)",
+                  "Barrens (map)"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cat3",
+            "name": "Counter-Strike: Economy & Tactics",
+            "clues": [
+              {
+                "id": "cat3-c1",
+                "value": 200,
+                "clueText": "In CS, 'CT' stands for what team name?",
+                "acceptableAnswers": [
+                  "Counter-Terrorists",
+                  "Counter Terrorists",
+                  "CT"
+                ]
+              },
+              {
+                "id": "cat3-c2",
+                "value": 400,
+                "clueText": "A buy strategy where you spend almost nothing to afford a strong next round is commonly called an ______.",
+                "acceptableAnswers": [
+                  "Eco",
+                  "Eco round",
+                  "ECO",
+                  "Save round",
+                  "Saving"
+                ]
+              },
+              {
+                "id": "cat3-c3",
+                "value": 600,
+                "clueText": "If a team forces a purchase despite low money, it's called a ______ buy.",
+                "acceptableAnswers": [
+                  "Force buy",
+                  "Force-buy",
+                  "Forcebuy",
+                  "Force"
+                ]
+              },
+              {
+                "id": "cat3-c4",
+                "value": 800,
+                "clueText": "Hard mode: What's the common term for a player whose job is to take first contact and create space (often dying first)?",
+                "acceptableAnswers": [
+                  "Entry fragger",
+                  "Entry",
+                  "Entry frag",
+                  "First entry",
+                  "Entry fragger role"
+                ]
+              },
+              {
+                "id": "cat3-c5",
+                "value": 1000,
+                "clueText": "DRAW: [AK-47] / [AWP] / [Dust2 (map layout)]. Team must guess from the drawing.",
+                "acceptableAnswers": [
+                  "AK-47",
+                  "AK47",
+                  "AK",
+                  "AWP",
+                  "Dust2",
+                  "Dust 2"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cat4",
+            "name": "Pokémon Gen 1 (The Original 151)",
+            "clues": [
+              {
+                "id": "cat4-c1",
+                "value": 200,
+                "clueText": "This Pokémon is #150 in the Kanto Pokédex (Gen 1).",
+                "acceptableAnswers": ["Mewtwo", "Mewtwo (No. 150)"]
+              },
+              {
+                "id": "cat4-c2",
+                "value": 400,
+                "clueText": "This Pokémon is famous for only saying its own name and is the franchise mascot.",
+                "acceptableAnswers": ["Pikachu"]
+              },
+              {
+                "id": "cat4-c3",
+                "value": 600,
+                "clueText": "Hard mode: What type is Gyarados in Gen 1 (two types)?",
+                "acceptableAnswers": [
+                  "Water/Flying",
+                  "Water Flying",
+                  "Flying/Water",
+                  "Flying Water"
+                ]
+              },
+              {
+                "id": "cat4-c4",
+                "value": 800,
+                "clueText": "Hard mode: This is the ONLY Gen 1 Pokémon that can evolve into 3 different forms in Gen 1.",
+                "acceptableAnswers": ["Eevee"]
+              },
+              {
+                "id": "cat4-c5",
+                "value": 1000,
+                "clueText": "DRAW: [Ditto] / [Snorlax] / [Charmander]. Team must guess from the drawing.",
+                "acceptableAnswers": ["Ditto", "Snorlax", "Charmander"]
+              }
+            ]
+          },
+          {
+            "id": "cat5",
+            "name": "Math & Logic Under Pressure",
+            "clues": [
+              {
+                "id": "cat5-c1",
+                "value": 200,
+                "clueText": "Elementary trap: What is 7 × 8?",
+                "acceptableAnswers": ["56", "Fifty-six", "Fifty six"]
+              },
+              {
+                "id": "cat5-c2",
+                "value": 400,
+                "clueText": "Quick percent: What is 15% of 200?",
+                "acceptableAnswers": ["30", "Thirty"]
+              },
+              {
+                "id": "cat5-c3",
+                "value": 600,
+                "clueText": "Logic: A debuff jumps to the nearest player when it expires. Best general strategy: stack tight or keep distance?",
+                "acceptableAnswers": ["Keep distance", "Spread", "Spread out", "Keep apart"]
+              },
+              {
+                "id": "cat5-c4",
+                "value": 800,
+                "clueText": "Hard mode: If you flip a fair coin 3 times, how many total outcomes are possible?",
+                "acceptableAnswers": ["8", "Eight"]
+              },
+              {
+                "id": "cat5-c5",
+                "value": 1000,
+                "clueText": "Hard mode: You have 3 players who can interrupt. A spell must be interrupted every 10 seconds for 1 minute. What's the safest plan?",
+                "acceptableAnswers": [
+                  "Rotate interrupts",
+                  "Interrupt rotation",
+                  "Take turns",
+                  "Rotation",
+                  "Assign an interrupt order",
+                  "Set an interrupt order"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cat6",
+            "name": "Geography + Tools (Denmark & Dad Knowledge)",
+            "clues": [
+              {
+                "id": "cat6-c1",
+                "value": 200,
+                "clueText": "Geography: What is the capital city of Denmark?",
+                "acceptableAnswers": ["Copenhagen", "København", "Koebenhavn"]
+              },
+              {
+                "id": "cat6-c2",
+                "value": 400,
+                "clueText": "Tools: This tool is designed to tighten or loosen nuts/bolts and has an adjustable jaw.",
+                "acceptableAnswers": [
+                  "Adjustable wrench",
+                  "Wrench",
+                  "Adjustable spanner",
+                  "Spanner",
+                  "Svensknøgle",
+                  "Svensk nøgle"
+                ]
+              },
+              {
+                "id": "cat6-c3",
+                "value": 600,
+                "clueText": "Geography (harder): What is the largest island in the world (by area) that is not considered a continent?",
+                "acceptableAnswers": ["Greenland", "Grønland", "Gronland"]
+              },
+              {
+                "id": "cat6-c4",
+                "value": 800,
+                "clueText": "Tools (harder): What is the name of the star-shaped screw drive type commonly seen on modern hardware (6-point)?",
+                "acceptableAnswers": ["Torx", "TORX"]
+              },
+              {
+                "id": "cat6-c5",
+                "value": 1000,
+                "clueText": "LOCAL LEGENDS (HOST-JUDGED): Name a local legend, story, or myth connected to Ringkøbing-Skjern Kommune (host decides if it counts).",
+                "acceptableAnswers": ["Host judged", "Host-judged", "Host accepted"]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "rules": {
+      "buzzOpenDelayMs": 500,
+      "answerTimeSeconds": 25,
+      "reboundEnabled": true,
+      "validationMode": "host-judged"
+    }
+  }
+}

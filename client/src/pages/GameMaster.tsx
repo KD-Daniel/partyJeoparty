@@ -39,6 +39,25 @@ export function GameMaster() {
   const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null);
   const [isDrawingChallenge, setIsDrawingChallenge] = useState(false);
   const [selectedDrawingOption, setSelectedDrawingOption] = useState<number | null>(null);
+  const [customPoints, setCustomPoints] = useState<number>(100);
+  const [wildcards, setWildcards] = useState<number[]>(() => {
+    const saved = localStorage.getItem('gm-wildcards');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const addWildcard = (value: number) => {
+    if (value > 0 && !wildcards.includes(value)) {
+      const newWildcards = [...wildcards, value].sort((a, b) => a - b);
+      setWildcards(newWildcards);
+      localStorage.setItem('gm-wildcards', JSON.stringify(newWildcards));
+    }
+  };
+
+  const removeWildcard = (value: number) => {
+    const newWildcards = wildcards.filter(w => w !== value);
+    setWildcards(newWildcards);
+    localStorage.setItem('gm-wildcards', JSON.stringify(newWildcards));
+  };
 
   // Load room data
   useEffect(() => {
@@ -262,6 +281,106 @@ export function GameMaster() {
                     -${amount}
                   </Button>
                 ))}
+              </div>
+
+              {/* Wildcards */}
+              {wildcards.length > 0 && (
+                <div className={styles.wildcards}>
+                  <label>Wildcards:</label>
+                  <div className={styles.wildcardList}>
+                    {wildcards.map(value => (
+                      <div key={value} className={styles.wildcardItem}>
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={() => {
+                            const newScores = { ...scores };
+                            newScores[selectedPlayer] = (newScores[selectedPlayer] || 0) + value;
+                            setScores(newScores);
+                            if (socket) {
+                              socket.emit('gm-award-points', { roomCode: code, scores: newScores });
+                            }
+                          }}
+                        >
+                          +${value}
+                        </Button>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => {
+                            const newScores = { ...scores };
+                            newScores[selectedPlayer] = (newScores[selectedPlayer] || 0) - value;
+                            setScores(newScores);
+                            if (socket) {
+                              socket.emit('gm-award-points', { roomCode: code, scores: newScores });
+                            }
+                          }}
+                        >
+                          -${value}
+                        </Button>
+                        <button
+                          className={styles.removeWildcard}
+                          onClick={() => removeWildcard(value)}
+                          title="Remove wildcard"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Custom points input */}
+              <div className={styles.customPoints}>
+                <label>Custom:</label>
+                <div className={styles.customPointsRow}>
+                  <input
+                    type="number"
+                    value={customPoints}
+                    onChange={(e) => setCustomPoints(Math.max(0, parseInt(e.target.value) || 0))}
+                    className={styles.customPointsInput}
+                    min="0"
+                    step="50"
+                  />
+                  <button
+                    className={styles.saveWildcard}
+                    onClick={() => addWildcard(customPoints)}
+                    title="Save as wildcard"
+                  >
+                    ★
+                  </button>
+                </div>
+                <div className={styles.customPointsButtons}>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => {
+                      const newScores = { ...scores };
+                      newScores[selectedPlayer] = (newScores[selectedPlayer] || 0) + customPoints;
+                      setScores(newScores);
+                      if (socket) {
+                        socket.emit('gm-award-points', { roomCode: code, scores: newScores });
+                      }
+                    }}
+                  >
+                    +${customPoints}
+                  </Button>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => {
+                      const newScores = { ...scores };
+                      newScores[selectedPlayer] = (newScores[selectedPlayer] || 0) - customPoints;
+                      setScores(newScores);
+                      if (socket) {
+                        socket.emit('gm-award-points', { roomCode: code, scores: newScores });
+                      }
+                    }}
+                  >
+                    -${customPoints}
+                  </Button>
+                </div>
               </div>
             </div>
           )}

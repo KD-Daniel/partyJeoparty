@@ -329,14 +329,14 @@ export function setupSocketHandlers(io: Server) {
         clue,
       }
 
-      // Broadcast clue selected
+      // Broadcast clue selected (hide clue text from players - host reads it aloud)
       io.to(roomCode).emit('clue-selected', {
         categoryId,
         clueId,
         clue: {
           id: clue.id,
           value: clue.value,
-          clueText: clue.isDailyDouble ? '' : clue.clueText, // Hide clue text for Daily Double until wager
+          clueText: '', // Always hide clue text - host reads it aloud
           isDailyDouble: clue.isDailyDouble,
           media: clue.media,
         },
@@ -738,14 +738,14 @@ export function setupSocketHandlers(io: Server) {
         clue,
       }
 
-      // Broadcast to all clients (players see the clue)
+      // Broadcast to all clients (hide clue text - host reads it aloud)
       io.to(roomCode).emit('clue-selected', {
         categoryId,
         clueId,
         clue: {
           id: clue.id,
           value: clue.value,
-          clueText: clue.clueText,
+          clueText: '', // Always hide clue text - host reads it aloud
           isDailyDouble: clue.isDailyDouble,
           media: clue.media,
           acceptableAnswers: clue.acceptableAnswers,
