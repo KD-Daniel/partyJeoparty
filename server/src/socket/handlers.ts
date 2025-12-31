@@ -344,20 +344,31 @@ export function setupSocketHandlers(io: Server) {
         currentSelector: session.currentSelector,
       })
 
-      // Enable buzzing after delay (if not Daily Double)
+      // Enable buzzing after delay (if not Daily Double and buzzers are enabled)
       if (!clue.isDailyDouble) {
-        const delay = session.setup.rules.buzzOpenDelayMs
+        // Check if buzzers are enabled
+        if (session.setup.rules.buzzersEnabled) {
+          const delay = session.setup.rules.buzzOpenDelayMs
 
-        setTimeout(() => {
-          session.buzzState = {
-            enabled: true,
-            excludedPlayers: [],
-          }
+          setTimeout(() => {
+            session.buzzState = {
+              enabled: true,
+              excludedPlayers: [],
+            }
 
-          io.to(roomCode).emit('buzz-enabled', {
-            timestamp: Date.now(),
+            io.to(roomCode).emit('buzz-enabled', {
+              timestamp: Date.now(),
+            })
+          }, delay)
+        } else {
+          // Buzzers disabled - notify host to select a player
+          io.to(roomCode).emit('awaiting-player-selection', {
+            players: Array.from(session.players.values()).map(p => ({
+              id: p.id,
+              name: p.name,
+            })),
           })
-        }, delay)
+        }
       } else {
         // For Daily Double, request wager from selector
         const selectorId = session.currentSelector || ''
@@ -488,6 +499,66 @@ export function setupSocketHandlers(io: Server) {
       // Emit answer timer started
       io.to(roomCode).emit('answer-timer-started', {
         playerId,
+        timeSeconds: session.setup.rules.answerTimeSeconds,
+      })
+    })
+
+    // Host selects a player (when buzzers are disabled)
+    socket.on('host-select-player', ({ roomCode, playerId: selectedPlayerId }) => {
+      const session = gameSessions.get(roomCode)
+      if (!session) {
+        socket.emit('error', { message: 'Room not found' })
+        return
+      }
+
+      const { playerId: hostId } = socket.data
+
+      // Check if buzzers are disabled
+      if (session.setup.rules.buzzersEnabled) {
+        socket.emit('error', { message: 'Buzzers are enabled - use buzz instead' })
+        return
+      }
+
+      // Check if there's an active clue
+      if (!session.currentClue) {
+        socket.emit('error', { message: 'No active clue' })
+        return
+      }
+
+      // If no player selected (skip), reveal answer and continue
+      if (!selectedPlayerId) {
+        revealAnswerAndContinue(io, session, roomCode)
+        return
+      }
+
+      // Verify player exists
+      const player = session.players.get(selectedPlayerId)
+      if (!player) {
+        socket.emit('error', { message: 'Player not found' })
+        return
+      }
+
+      // Set up answer state for the selected player
+      const answerTimeMs = session.setup.rules.answerTimeSeconds * 1000
+      const timeoutId = setTimeout(() => {
+        handleAnswerTimeout(io, roomCode, selectedPlayerId)
+      }, answerTimeMs)
+
+      session.answerState = {
+        playerId: selectedPlayerId,
+        startTime: Date.now(),
+        timeoutId,
+      }
+
+      // Emit player selected (similar to buzz-winner but for manual selection)
+      io.to(roomCode).emit('player-selected', {
+        playerId: selectedPlayerId,
+        playerName: player.name,
+      })
+
+      // Emit answer timer started
+      io.to(roomCode).emit('answer-timer-started', {
+        playerId: selectedPlayerId,
         timeSeconds: session.setup.rules.answerTimeSeconds,
       })
     })
@@ -720,7 +791,7 @@ export function setupSocketHandlers(io: Server) {
     })
 
     // Game Master: Select a clue
-    socket.on('gm-select-clue', ({ roomCode, categoryId, clueId, clue }) => {
+    socket.on('gm-select-clue', ({ roomCode, categoryId, clueId, clue, categoryName }) => {
       const session = gameSessions.get(roomCode)
       if (!session) {
         socket.emit('error', { message: 'Room not found' })
@@ -738,19 +809,34 @@ export function setupSocketHandlers(io: Server) {
         clue,
       }
 
-      // Broadcast to all clients (hide clue text - host reads it aloud)
+      // Broadcast to all clients - for single-station mode, show clue text to viewer
       io.to(roomCode).emit('clue-selected', {
         categoryId,
         clueId,
+        categoryName,
         clue: {
           id: clue.id,
           value: clue.value,
-          clueText: '', // Always hide clue text - host reads it aloud
+          clueText: clue.clueText, // Show clue text for single-station viewer
           isDailyDouble: clue.isDailyDouble,
           media: clue.media,
           acceptableAnswers: clue.acceptableAnswers,
         },
         usedClues: Array.from(session.usedClues),
+      })
+    })
+
+    // Game Master: Reveal answer to viewers
+    socket.on('gm-reveal-answer', ({ roomCode }) => {
+      const session = gameSessions.get(roomCode)
+      if (!session) {
+        socket.emit('error', { message: 'Room not found' })
+        return
+      }
+
+      // Broadcast answer revealed to all clients
+      io.to(roomCode).emit('answer-revealed', {
+        correctAnswer: session.currentClue?.clue?.acceptableAnswers?.[0] || '',
       })
     })
 
@@ -775,6 +861,35 @@ export function setupSocketHandlers(io: Server) {
       // Broadcast score update
       io.to(roomCode).emit('score-updated', {
         scores: Object.fromEntries(session.scores),
+      })
+    })
+
+    // Game Master: Select a player to answer (when buzzers disabled)
+    socket.on('gm-select-player', ({ roomCode, playerId: selectedPlayerId }) => {
+      const session = gameSessions.get(roomCode)
+      if (!session) {
+        socket.emit('error', { message: 'Room not found' })
+        return
+      }
+
+      // If no player selected (skip), close clue
+      if (!selectedPlayerId) {
+        session.currentClue = undefined
+        session.buzzState = undefined
+        io.to(roomCode).emit('clue-closed', {
+          usedClues: Array.from(session.usedClues),
+        })
+        return
+      }
+
+      // Get player info
+      const player = session.players.get(selectedPlayerId)
+      const playerName = player?.name || 'Unknown'
+
+      // Emit player selected
+      io.to(roomCode).emit('player-selected', {
+        playerId: selectedPlayerId,
+        playerName,
       })
     })
 

@@ -276,3 +276,40 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
+
+/* Player Selection Styles (when buzzers disabled) */
+.playerSelection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.selectPrompt {
+  font-size: 1.25rem;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.playerButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.playerButtons button {
+  min-width: 120px;
+}
+
+.skipButton {
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+
+.skipButton:hover {
+  opacity: 1;
+}

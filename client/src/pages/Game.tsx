@@ -24,6 +24,8 @@ export function Game() {
   const [loading, setLoading] = useState(true);
   const [playerNames, setPlayerNames] = useState<Record<string, string>>({});
   const [selectedDrawingAnswer, setSelectedDrawingAnswer] = useState<string | undefined>();
+  const [awaitingPlayerSelection, setAwaitingPlayerSelection] = useState(false);
+  const [buzzersEnabled, setBuzzersEnabled] = useState(true);
 
   // Check if we're the host
   const savedHostId = sessionStorage.getItem('hostId');
@@ -58,6 +60,9 @@ export function Game() {
         // Use scores from room (initialized by server with socket player IDs)
         setScores(room.scores || {});
         setUsedClues(new Set(room.usedClues || []));
+
+        // Get buzzer settings
+        setBuzzersEnabled(room.setup?.rules?.buzzersEnabled ?? true);
 
         setLoading(false);
       } catch (err) {
@@ -127,6 +132,21 @@ export function Game() {
       setBuzzWinner(data.playerId);
       setBuzzerName(data.playerName);
       setCanBuzz(false);
+      setAwaitingPlayerSelection(false);
+    });
+
+    // Listen for awaiting player selection (when buzzers disabled)
+    socket.on('awaiting-player-selection', () => {
+      console.log('Awaiting player selection');
+      setAwaitingPlayerSelection(true);
+    });
+
+    // Listen for player selected (when buzzers disabled, host picks a player)
+    socket.on('player-selected', (data: { playerId: string; playerName: string }) => {
+      console.log('Player selected:', data);
+      setBuzzWinner(data.playerId);
+      setBuzzerName(data.playerName);
+      setAwaitingPlayerSelection(false);
     });
 
     // Listen for answer timer started
@@ -230,6 +250,8 @@ export function Game() {
       socket.off('clue-selected');
       socket.off('buzz-enabled');
       socket.off('buzz-winner');
+      socket.off('awaiting-player-selection');
+      socket.off('player-selected');
       socket.off('answer-timer-started');
       socket.off('answer-result');
       socket.off('answer-judged');
@@ -277,6 +299,14 @@ export function Game() {
       roomCode: code,
       playerId: buzzWinner,
       isCorrect,
+    });
+  };
+
+  const handleSelectPlayer = (playerId: string | null) => {
+    if (!socket) return;
+    socket.emit('host-select-player', {
+      roomCode: code,
+      playerId,
     });
   };
 
@@ -389,6 +419,10 @@ export function Game() {
         onIncorrect={() => handleJudgeAnswer(false)}
         onAnswerSubmit={handleAnswerSubmit}
         selectedDrawingAnswer={selectedDrawingAnswer}
+        buzzersEnabled={buzzersEnabled}
+        awaitingPlayerSelection={awaitingPlayerSelection}
+        players={sortedPlayers.map(p => ({ id: p.id, name: p.name }))}
+        onSelectPlayer={handleSelectPlayer}
       />
     </div>
   );

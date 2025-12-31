@@ -25,7 +25,17 @@ export function Setup() {
     answerTimeSeconds: 10,
     reboundEnabled: true,
     validationMode: 'auto-check',
+    buzzersEnabled: true,
   });
+  const [singleStationMode, setSingleStationMode] = useState(false);
+
+  // Local player management state (for single-station mode)
+  const [newLocalPlayerName, setNewLocalPlayerName] = useState('');
+  const [newLocalPlayerTeam, setNewLocalPlayerTeam] = useState('');
+  const [newLocalPlayerColor, setNewLocalPlayerColor] = useState('#00f5ff');
+
+  // Default player colors
+  const playerColors = ['#00f5ff', '#ff00aa', '#00ff88', '#ffaa00', '#aa00ff', '#ff6600', '#00aaff', '#ff0066'];
 
   // Deck management state
   const [savedDecks, setSavedDecks] = useState<DeckListItem[]>([]);
@@ -51,7 +61,11 @@ export function Setup() {
             ...cat,
             clues: cat.clues.map((clue: any) => ({ ...clue, isUsed: false })),
           })) || []);
-          setRules(json.setup.rules);
+          setRules({
+            ...json.setup.rules,
+            buzzersEnabled: json.setup.rules.buzzersEnabled ?? true,
+          });
+          setSingleStationMode(json.setup.singleStationMode ?? false);
           // Clear localStorage after loading
           localStorage.removeItem('quickStartDeck');
           // Go directly to manage step
@@ -80,6 +94,32 @@ export function Setup() {
 
   const removePlayer = (id: string) => {
     setPlayers(players.filter((p) => p.id !== id));
+  };
+
+  // Add a local player (for single-station mode)
+  const addLocalPlayer = () => {
+    if (newLocalPlayerName.trim() && players.length < 8) {
+      // Get next available color
+      const usedColors = players.map(p => p.color).filter(Boolean);
+      const availableColor = playerColors.find(c => !usedColors.includes(c)) || newLocalPlayerColor;
+
+      setPlayers([
+        ...players,
+        {
+          id: generateId(),
+          name: newLocalPlayerName.trim(),
+          team: newLocalPlayerTeam.trim() || undefined,
+          score: 0,
+          isConnected: true,
+          color: availableColor,
+        },
+      ]);
+      setNewLocalPlayerName('');
+      setNewLocalPlayerTeam('');
+      // Set next color for quick entry
+      const nextColorIndex = (playerColors.indexOf(availableColor) + 1) % playerColors.length;
+      setNewLocalPlayerColor(playerColors[nextColorIndex]);
+    }
   };
 
   const addCategory = () => {
@@ -152,7 +192,7 @@ export function Setup() {
         title: gameTitle,
         setup: {
           title: gameTitle,
-          players: players.map(p => ({ id: p.id, name: p.name, team: p.team })),
+          players: players.map(p => ({ id: p.id, name: p.name, team: p.team, color: p.color })),
           rounds: [{
             id: 'round-1',
             name: 'Jeopardy Round',
@@ -168,6 +208,7 @@ export function Setup() {
             })),
           }],
           rules,
+          singleStationMode,
         },
       };
 
@@ -204,7 +245,11 @@ export function Setup() {
         ...cat,
         clues: cat.clues.map((clue: any) => ({ ...clue, isUsed: false })),
       })) || []);
-      setRules(deck.setup.rules);
+      setRules({
+        ...deck.setup.rules,
+        buzzersEnabled: deck.setup.rules.buzzersEnabled ?? true,
+      });
+      setSingleStationMode(deck.setup.singleStationMode ?? false);
       setCurrentDeckId(deckId);
       setShowDeckLibrary(false);
       alert('Deck loaded successfully!');
@@ -254,7 +299,7 @@ export function Setup() {
       title: gameTitle,
       setup: {
         title: gameTitle,
-        players: players.map(p => ({ id: p.id, name: p.name, team: p.team })),
+        players: players.map(p => ({ id: p.id, name: p.name, team: p.team, color: p.color })),
         rounds: [{
           id: 'round-1',
           name: 'Jeopardy Round',
@@ -270,6 +315,7 @@ export function Setup() {
           })),
         }],
         rules,
+        singleStationMode,
       },
     };
 
@@ -306,7 +352,11 @@ export function Setup() {
           ...cat,
           clues: cat.clues.map((clue: any) => ({ ...clue, isUsed: false })),
         })) || []);
-        setRules(json.setup.rules);
+        setRules({
+          ...json.setup.rules,
+          buzzersEnabled: json.setup.rules.buzzersEnabled ?? true,
+        });
+        setSingleStationMode(json.setup.singleStationMode ?? false);
         setCurrentDeckId(null);
         alert('Deck imported successfully!');
       } catch (error) {
@@ -318,11 +368,17 @@ export function Setup() {
   };
 
   const handleStartGame = async () => {
+    // For single-station mode, require minimum 2 players
+    if (singleStationMode && players.length < 2) {
+      alert('Please add at least 2 players for single-station mode.');
+      return;
+    }
+
     try {
       // Build the game setup
       const gameSetup = {
         title: gameTitle,
-        players: players.map(p => ({ id: p.id, name: p.name, team: p.team })),
+        players: players.map(p => ({ id: p.id, name: p.name, team: p.team, color: p.color })),
         rounds: [{
           id: 'round-1',
           name: 'Jeopardy Round',
@@ -338,6 +394,7 @@ export function Setup() {
           })),
         }],
         rules,
+        singleStationMode,
       };
 
       // Generate a unique host ID and save it for the lobby
@@ -350,7 +407,13 @@ export function Setup() {
         hostId,
       });
 
-      navigate(`/room/${room.roomCode}`);
+      if (singleStationMode) {
+        // Skip lobby and go directly to game master control view
+        // Host opens master-local, viewer screen opens game-local
+        navigate(`/master-local/${room.roomCode}`);
+      } else {
+        navigate(`/room/${room.roomCode}`);
+      }
     } catch (error) {
       console.error('Failed to start game:', error);
       alert('Failed to start game. Please try again.');
@@ -642,7 +705,125 @@ export function Setup() {
                       </button>
                     </div>
                   </div>
+
+                  <div className={styles.ruleItem}>
+                    <label className={styles.ruleLabel}>Players Have Buzzers</label>
+                    <div className={styles.toggle}>
+                      <button
+                        className={`${styles.toggleBtn} ${rules.buzzersEnabled ? styles.active : ''}`}
+                        onClick={() => setRules({ ...rules, buzzersEnabled: true })}
+                      >
+                        Yes
+                      </button>
+                      <button
+                        className={`${styles.toggleBtn} ${!rules.buzzersEnabled ? styles.active : ''}`}
+                        onClick={() => setRules({ ...rules, buzzersEnabled: false })}
+                      >
+                        No
+                      </button>
+                    </div>
+                    <p className={styles.ruleHint}>
+                      {rules.buzzersEnabled
+                        ? 'Players buzz in to answer'
+                        : 'Host manually selects who answers'}
+                    </p>
+                  </div>
+
+                  <div className={styles.ruleItem}>
+                    <label className={styles.ruleLabel}>Single Station Mode</label>
+                    <div className={styles.toggle}>
+                      <button
+                        className={`${styles.toggleBtn} ${singleStationMode ? styles.active : ''}`}
+                        onClick={() => setSingleStationMode(true)}
+                      >
+                        Yes
+                      </button>
+                      <button
+                        className={`${styles.toggleBtn} ${!singleStationMode ? styles.active : ''}`}
+                        onClick={() => setSingleStationMode(false)}
+                      >
+                        No
+                      </button>
+                    </div>
+                    <p className={styles.ruleHint}>
+                      {singleStationMode
+                        ? 'All players share one screen - no lobby/room code'
+                        : 'Players join via room code on their devices'}
+                    </p>
+                  </div>
                 </div>
+
+                {/* Local Player Management (shown when single-station mode enabled) */}
+                {singleStationMode && (
+                  <div className={styles.localPlayerSection}>
+                    <h4>Add Players (Min. 2 required)</h4>
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        addLocalPlayer();
+                      }}
+                      className={styles.localPlayerForm}
+                    >
+                      <Input
+                        placeholder="Player name..."
+                        value={newLocalPlayerName}
+                        onChange={(e) => setNewLocalPlayerName(e.target.value)}
+                      />
+                      <Input
+                        placeholder="Team (optional)"
+                        value={newLocalPlayerTeam}
+                        onChange={(e) => setNewLocalPlayerTeam(e.target.value)}
+                        style={{ maxWidth: '120px' }}
+                      />
+                      <input
+                        type="color"
+                        value={newLocalPlayerColor}
+                        onChange={(e) => setNewLocalPlayerColor(e.target.value)}
+                        className={styles.colorPicker}
+                        title="Player color"
+                      />
+                      <Button variant="secondary" type="submit" disabled={players.length >= 8}>
+                        Add
+                      </Button>
+                    </form>
+
+                    <div className={styles.localPlayerList}>
+                      {players.map((player) => (
+                        <div key={player.id} className={styles.localPlayerItem}>
+                          <div
+                            className={styles.playerColorDot}
+                            style={{ backgroundColor: player.color || '#00f5ff' }}
+                          />
+                          <div className={styles.localPlayerInfo}>
+                            <span className={styles.localPlayerName}>{player.name}</span>
+                            {player.team && (
+                              <span className={styles.localPlayerTeam}>Team: {player.team}</span>
+                            )}
+                          </div>
+                          <div className={styles.localPlayerActions}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removePlayer(player.id)}
+                            >
+                              Remove
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {players.length === 0 && (
+                      <p className={styles.emptyState}>No players added yet</p>
+                    )}
+
+                    {players.length > 0 && players.length < 2 && (
+                      <p className={styles.minPlayersWarning}>
+                        Add at least {2 - players.length} more player{2 - players.length > 1 ? 's' : ''} to start
+                      </p>
+                    )}
+                  </div>
+                )}
               </Card>
 
               <div className={styles.stepActions}>

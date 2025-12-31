@@ -3,6 +3,7 @@ export interface Player {
   id: string
   name: string
   team?: string
+  color?: string
 }
 
 export interface ClueSetup {
@@ -34,6 +35,7 @@ export interface GameRules {
   answerTimeSeconds: number
   reboundEnabled: boolean
   validationMode: 'host-judged' | 'auto-check'
+  buzzersEnabled: boolean
 }
 
 export interface GameSetup {
@@ -41,6 +43,7 @@ export interface GameSetup {
   players: Player[]
   rounds: RoundSetup[]
   rules: GameRules
+  singleStationMode: boolean
 }
 
 export interface Deck {

@@ -4,6 +4,11 @@ import { Button } from './Button';
 import { Input } from './Input';
 import styles from './ClueReveal.module.css';
 
+interface Player {
+  id: string;
+  name: string;
+}
+
 interface ClueRevealProps {
   clueText: string;
   value: number;
@@ -20,6 +25,11 @@ interface ClueRevealProps {
   onAnswerSubmit?: (answer: string) => void;
   validationMode?: 'host-judged' | 'auto-check';
   selectedDrawingAnswer?: string;
+  // Player selection props (when buzzers disabled)
+  buzzersEnabled?: boolean;
+  awaitingPlayerSelection?: boolean;
+  players?: Player[];
+  onSelectPlayer?: (playerId: string | null) => void;
 }
 
 export function ClueReveal({
@@ -38,6 +48,10 @@ export function ClueReveal({
   onAnswerSubmit,
   validationMode = 'host-judged',
   selectedDrawingAnswer,
+  buzzersEnabled = true,
+  awaitingPlayerSelection = false,
+  players = [],
+  onSelectPlayer,
 }: ClueRevealProps) {
   const [showBuzzPrompt, setShowBuzzPrompt] = useState(false);
   const [answerText, setAnswerText] = useState('');
@@ -151,7 +165,8 @@ export function ClueReveal({
             )}
 
             <div className={styles.actions}>
-              {!buzzWinner && canBuzz && showBuzzPrompt && (
+              {/* Buzz button (when buzzers enabled) */}
+              {buzzersEnabled && !buzzWinner && canBuzz && showBuzzPrompt && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -164,6 +179,45 @@ export function ClueReveal({
                   >
                     BUZZ IN!
                   </Button>
+                </motion.div>
+              )}
+
+              {/* Host player selection (when buzzers disabled) */}
+              {!buzzersEnabled && isHost && awaitingPlayerSelection && !buzzWinner && (
+                <motion.div
+                  className={styles.playerSelection}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <p className={styles.selectPrompt}>Select who answers:</p>
+                  <div className={styles.playerButtons}>
+                    {players.map((player) => (
+                      <Button
+                        key={player.id}
+                        variant="primary"
+                        onClick={() => onSelectPlayer?.(player.id)}
+                      >
+                        {player.name}
+                      </Button>
+                    ))}
+                  </div>
+                  <Button
+                    variant="ghost"
+                    onClick={() => onSelectPlayer?.(null)}
+                    className={styles.skipButton}
+                  >
+                    No One Answered
+                  </Button>
+                </motion.div>
+              )}
+
+              {/* Waiting message for non-host when buzzers disabled */}
+              {!buzzersEnabled && !isHost && !buzzWinner && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <p className={styles.waitingText}>Waiting for host to select a player...</p>
                 </motion.div>
               )}
 

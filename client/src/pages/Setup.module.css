@@ -258,3 +258,108 @@
   border-color: var(--neon-cyan);
   color: var(--neon-cyan);
 }
+
+.ruleHint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+/* Local Player Management Styles */
+.localPlayerSection {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.localPlayerSection h4 {
+  color: var(--neon-cyan);
+  margin-bottom: 1rem;
+}
+
+.localPlayerForm {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.localPlayerForm input {
+  flex: 1;
+  min-width: 120px;
+}
+
+.colorPicker {
+  width: 44px;
+  height: 44px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  cursor: pointer;
+}
+
+.colorPicker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.colorPicker::-webkit-color-swatch {
+  border: none;
+  border-radius: var(--radius-sm);
+}
+
+.localPlayerList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.localPlayerItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+}
+
+.playerColorDot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.localPlayerInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.localPlayerName {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.localPlayerTeam {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.localPlayerActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.minPlayersWarning {
+  color: var(--neon-gold);
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 0.75rem;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: var(--radius-md);
+  margin-top: 1rem;
+}
