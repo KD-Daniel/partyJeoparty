@@ -78,7 +78,7 @@ function revealAnswerAndContinue(
 ) {
   if (!session.currentClue) return
 
-  const correctAnswer = session.currentClue.clue.acceptableAnswers[0]
+  const correctAnswer = session.currentClue.clue?.acceptableAnswers?.[0] || ''
 
   io.to(roomCode).emit('answer-revealed', {
     correctAnswer,
@@ -619,7 +619,7 @@ export function setupSocketHandlers(io: Server) {
         playerId,
         answer,
         isCorrect,
-        correctAnswer: session.currentClue.clue.acceptableAnswers[0],
+        correctAnswer: session.currentClue?.clue?.acceptableAnswers?.[0] || '',
         scores: Object.fromEntries(session.scores),
       })
 
@@ -692,7 +692,7 @@ export function setupSocketHandlers(io: Server) {
       io.to(roomCode).emit('answer-judged', {
         playerId,
         isCorrect,
-        correctAnswer: session.currentClue.clue.acceptableAnswers[0],
+        correctAnswer: session.currentClue?.clue?.acceptableAnswers?.[0] || '',
         scores: Object.fromEntries(session.scores),
       })
 
