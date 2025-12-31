@@ -1,0 +1,53 @@
+{
+  "title": "Quick Test Game",
+  "setup": {
+    "title": "Quick Test Game",
+    "players": [
+      { "id": "player1", "name": "Test Player" }
+    ],
+    "rounds": [
+      {
+        "categories": [
+          {
+            "name": "Movies",
+            "clues": [
+              { "value": 100, "text": "This 1994 film follows a man sitting on a bench telling his life story", "answer": "Forrest Gump" },
+              { "value": 200, "text": "Leonardo DiCaprio said 'I'm the king of the world!' in this 1997 film", "answer": "Titanic" },
+              { "value": 300, "text": "This superhero was bitten by a radioactive spider", "answer": "Spider-Man" },
+              { "value": 400, "text": "Keanu Reeves plays Neo in this 1999 sci-fi classic", "answer": "The Matrix" },
+              { "value": 500, "text": "This film features the quote: 'Here's looking at you, kid'", "answer": "Casablanca" }
+            ]
+          },
+          {
+            "name": "Science",
+            "clues": [
+              { "value": 100, "text": "This planet is known as the Red Planet", "answer": "Mars" },
+              { "value": 200, "text": "H2O is the chemical formula for this", "answer": "Water" },
+              { "value": 300, "text": "This force keeps us on the ground", "answer": "Gravity" },
+              { "value": 400, "text": "The closest star to Earth", "answer": "The Sun" },
+              { "value": 500, "text": "This scientist developed the theory of relativity", "answer": "Einstein" }
+            ]
+          },
+          {
+            "name": "Music",
+            "clues": [
+              { "value": 100, "text": "This band sang 'Bohemian Rhapsody'", "answer": "Queen" },
+              { "value": 200, "text": "Elvis Presley was known as the King of this genre", "answer": "Rock and Roll" },
+              { "value": 300, "text": "This instrument has 88 keys", "answer": "Piano" },
+              { "value": 400, "text": "Taylor Swift's first album was released in this decade", "answer": "2000s (2006)" },
+              { "value": 500, "text": "This Beatles album features a zebra crossing on its cover", "answer": "Abbey Road" }
+            ]
+          }
+        ]
+      }
+    ],
+    "rules": {
+      "buzzOpenDelayMs": 500,
+      "answerTimeSeconds": 15,
+      "reboundEnabled": true,
+      "validationMode": "host-judged",
+      "buzzersEnabled": true
+    },
+    "singleStationMode": false
+  }
+}

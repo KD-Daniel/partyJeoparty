@@ -28,7 +28,7 @@ function handleAnswerTimeout(io: Server, roomCode: string, playerId: string) {
 
   io.to(roomCode).emit('answer-timeout', {
     playerId,
-    correctAnswer: session.currentClue.clue.acceptableAnswers[0],
+    correctAnswer: session.currentClue?.clue?.acceptableAnswers?.[0] || '',
   })
 
   // Handle rebound or move to next selector
@@ -824,6 +824,32 @@ export function setupSocketHandlers(io: Server) {
         },
         usedClues: Array.from(session.usedClues),
       })
+
+      // Enable buzzing after delay (if not Daily Double and buzzers are enabled)
+      if (!clue.isDailyDouble) {
+        if (session.setup.rules.buzzersEnabled) {
+          const delay = session.setup.rules.buzzOpenDelayMs || 500
+
+          setTimeout(() => {
+            session.buzzState = {
+              enabled: true,
+              excludedPlayers: [],
+            }
+
+            io.to(roomCode).emit('buzz-enabled', {
+              timestamp: Date.now(),
+            })
+          }, delay)
+        } else {
+          // Buzzers disabled - notify host to select a player
+          io.to(roomCode).emit('awaiting-player-selection', {
+            players: Array.from(session.players.values()).map((p) => ({
+              id: p.id,
+              name: p.name,
+            })),
+          })
+        }
+      }
     })
 
     // Game Master: Reveal answer to viewers
